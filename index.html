@@ -20,35 +20,30 @@
             transition: background 1s ease;
         }
 
-        /* Varsayılan gradient */
         body.gradient {
             background: linear-gradient(135deg, #ff7eb3, #8e44ad, #3498db);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
         }
 
-        /* Siberpunk */
         body.siberpunk {
             background: linear-gradient(135deg, #ff0080, #7928ca, #2afadf);
             background-size: 400% 400%;
             animation: gradientBG 12s ease infinite;
         }
 
-        /* Neon */
         body.neon {
             background: linear-gradient(135deg, #00ff87, #60efff, #0061ff);
             background-size: 400% 400%;
             animation: gradientBG 14s ease infinite;
         }
 
-        /* Pastel */
         body.pastel {
             background: linear-gradient(135deg, #ffdde1, #ee9ca7, #a1c4fd);
             background-size: 400% 400%;
             animation: gradientBG 18s ease infinite;
         }
 
-        /* Gradient animasyonu */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -75,7 +70,6 @@
             transform: scale(1.05);
         }
 
-        /* Menü (sol üstte sabit) */
         .menu {
             position: absolute;
             top: 15px;
@@ -116,9 +110,7 @@
 </head>
 <body class="gradient">
 
-    <!-- Sol üst menü -->
     <div class="menu">
-        <!-- Tema seçici -->
         <label for="theme">🎨 Tema:</label>
         <select id="theme" onchange="changeTheme(this.value)">
             <option value="gradient">Varsayılan</option>
@@ -127,15 +119,13 @@
             <option value="pastel">Pastel</option>
         </select>
 
-        <!-- Müzik seçici -->
         <label for="music">🎵 Müzik:</label>
         <select id="music" onchange="changeMusic(this.value)">
-            <option value="ses1.mp3">No.1 Mutsuzlar</option>
-            <option value="ses2.mp3">No.1 Bu Benim Hayatım</option>
-            <option value="ses3.mp3">No.1 Tekel Mavisi</option>
+            <option value="/ses1.mp3">No.1 Mutsuzlar</option>
+            <option value="/ses2.mp3">No.1 Bu Benim Hayatım</option>
+            <option value="/ses3.mp3">No.1 Tekel Mavisi</option>
         </select>
 
-        <!-- Kontroller -->
         <button onclick="togglePlay()">▶️ / ⏸️</button>
         <button onclick="toggleMute()">🔇 / 🔊</button>
     </div>
@@ -146,8 +136,7 @@
     <a href="https://www.instagram.com/o2.sxi/" target="_blank" title="Neo Instagram">Neo Instagram</a>
     <a href="https://www.instagram.com/xtqlx" target="_blank" title="Rewa Instagram">Rewa Instagram</a>
 
-    <!-- Müzik -->
-    <audio id="player" src="ses1.mp3" autoplay loop></audio>
+    <audio id="player" src="/ses1.mp3" autoplay loop muted></audio>
 
     <script>
         const player = document.getElementById("player");
@@ -158,15 +147,15 @@
 
         function changeMusic(file) {
             player.src = file;
-            player.play();
+            player.play().catch(() => {
+                alert("Tarayıcı otomatik çalmayı engelledi. Lütfen ▶️ butonuna basın.");
+            });
         }
 
         function togglePlay() {
-            if (player.paused) {
-                player.play();
-            } else {
-                player.pause();
-            }
+            player.play().catch(() => {
+                alert("Tarayıcı otomatik çalmayı engelledi. Lütfen ▶️ butonuna basın.");
+            });
         }
 
         function toggleMute() {
